@@ -1,16 +1,75 @@
-# React + Vite
+# RentAPI Web 🏠
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web que muestra estadísticas y precios de alquiler en Cataluña mediante un mapa interactivo. Explora los precios por ciudad y barrio, consulta rankings y analiza el mercado inmobiliario catalán en tiempo real.
 
-Currently, two official plugins are available:
+🌐 **[rentapi-web.vercel.app](https://rentapi-web.vercel.app/)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Características
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🗺️ **Mapa interactivo** con clustering por zoom: ciudades a vista general, barrios al acercarse
+- 📊 **Ranking de precios** ordenable por precio medio mensual y €/m²
+- 🎨 **Código de colores** por rangos de precio (verde → rojo)
+- 📍 **Paneles de detalle** al hacer clic en cualquier marcador
+- ⚡ **Carga progresiva** de datos para una experiencia fluida
 
-## Expanding the ESLint configuration
+## Stack Tecnológico
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Capa | Tecnología |
+|---|---|
+| Frontend | React + Vite |
+| Mapa | Leaflet |
+| Estilos | Tailwind CSS |
+| Estado | Zustand |
+| Despliegue | Vercel (Serverless Functions) |
+| Backend | API REST (Render) |
+
+## Estructura del Proyecto
+
+```
+rentapi-web/
+├── api/                  # Serverless functions (proxy hacia Render)
+├── public/               # Assets estáticos (favicon, icons)
+├── src/
+│   ├── components/       # MapView, CityMarker, BarrioMarker, paneles...
+│   ├── hooks/            # useStats, useGeo, usePisos
+│   ├── store/            # Zustand (useCiudadesStore)
+│   └── pages/            # RankingPage, ...
+├── vercel.json           # Configuración de rutas y proxy
+└── vite.config.js        # Configuración de Vite
+```
+
+## Cómo funciona el mapa
+
+El mapa carga datos en **dos fases** para evitar bloqueos:
+
+1. **Fase 1** — Renderiza los marcadores inmediatamente con coordenadas locales (precio pendiente)
+2. **Fase 2** — Obtiene los precios de la API en paralelo y actualiza los marcadores progresivamente
+
+El nivel de zoom determina qué se muestra:
+- **Zoom < 11** → Marcadores de ciudades
+- **Zoom ≥ 11** → Marcadores de barrios
+
+## Desarrollo Local
+
+```bash
+# Instalar dependencias
+npm install
+
+# Arrancar en modo desarrollo
+npm run dev
+
+# Build de producción
+npm run build
+```
+
+## Despliegue
+
+El proyecto está desplegado en **Vercel**. Cada push a `main` genera un despliegue automático.
+
+Las funciones serverless en `/api` actúan como proxy hacia el backend en Render, evitando problemas de CORS.
+
+---
+
+Desarrollado por [Pau Balsach](https://github.com/Pau-Balsach)
