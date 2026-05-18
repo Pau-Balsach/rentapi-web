@@ -6,6 +6,17 @@ Aplicación web que muestra estadísticas y precios de alquiler en Cataluña med
 
 ---
 
+## Ecosistema RentAPI
+
+Este repositorio es el **frontend** del ecosistema. Los otros dos componentes son:
+
+| Repositorio | Descripción |
+|---|---|
+| ⚙️ [rentapi](https://github.com/Pau-Balsach/rentapi) | API REST en Spring Boot que sirve los datos al frontend |
+| 🕷️ [rentapi-scraper](https://github.com/Pau-Balsach/rentapi-scrapper) | Scraper en Java que extrae los datos de Idealista y Habitaclia |
+
+---
+
 ## Características
 
 - 🗺️ **Mapa interactivo** con clustering por zoom: ciudades a vista general, barrios al acercarse
@@ -13,6 +24,8 @@ Aplicación web que muestra estadísticas y precios de alquiler en Cataluña med
 - 🎨 **Código de colores** por rangos de precio (verde → rojo)
 - 📍 **Paneles de detalle** al hacer clic en cualquier marcador
 - ⚡ **Carga progresiva** de datos para una experiencia fluida
+
+---
 
 ## Stack Tecnológico
 
@@ -24,6 +37,8 @@ Aplicación web que muestra estadísticas y precios de alquiler en Cataluña med
 | Estado | Zustand |
 | Despliegue | Vercel (Serverless Functions) |
 | Backend | API REST (Render) |
+
+---
 
 ## Estructura del Proyecto
 
@@ -40,6 +55,8 @@ rentapi-web/
 └── vite.config.js        # Configuración de Vite
 ```
 
+---
+
 ## Cómo funciona el mapa
 
 El mapa carga datos en **dos fases** para evitar bloqueos:
@@ -50,6 +67,8 @@ El mapa carga datos en **dos fases** para evitar bloqueos:
 El nivel de zoom determina qué se muestra:
 - **Zoom < 11** → Marcadores de ciudades
 - **Zoom ≥ 11** → Marcadores de barrios
+
+---
 
 ## Desarrollo Local
 
@@ -63,6 +82,8 @@ npm run dev
 # Build de producción
 npm run build
 ```
+
+---
 
 ## Despliegue
 
