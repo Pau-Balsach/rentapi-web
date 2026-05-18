@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   const { path, ...query } = req.query
   const params = new URLSearchParams(query).toString()
-  const url = `https://rentapi-b6gc.onrender.com/api/v1/pisos/${path}${params ? '?' + params : ''}`
+  const url = `https://rentapi-tuaq.onrender.com/api/v1/pisos/${path}${params ? '?' + params : ''}`
 
   try {
     const response = await fetch(url, {

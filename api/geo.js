@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   const subpath = path || captured || req.url.replace(/^\/api\/geo\/?/, '').split('?')[0]
 
   const params = new URLSearchParams(query).toString()
-  const url = `https://rentapi-b6gc.onrender.com/api/v1/geo/${subpath}${params ? '?' + params : ''}`
+  const url = `https://rentapi-tuaq.onrender.com/api/v1/geo/${subpath}${params ? '?' + params : ''}`
 
   try {
     const response = await fetch(url, {
