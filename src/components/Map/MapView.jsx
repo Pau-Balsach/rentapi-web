@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet'
 import useCiudadesStore from '../../store/useCiudadesStore'
 import { fetchCiudades, fetchBarrios } from '../../hooks/useGeo'
-import { fetchComparar, fetchStatsCiudad, fetchStatsBarrio } from '../../hooks/useStats'
+import { fetchComparar, fetchStatsCiudad } from '../../hooks/useStats'
 import coordsData from '../../data/ciudades-coords.json'
 import barriosData from '../../data/barrios-coords.json'
 import CityMarker from './CityMarker'
@@ -108,6 +108,9 @@ export default function MapView() {
 
     setLoadingBarrios(true)
 
+    // Filtra slugs numéricos o sin nombre real ("1", "42", "s-n", "14-16")
+    const esSlugBasura = (slug) => /^[\d\-]+$/.test(slug) || slug === 's-n'
+
     Promise.all(
       ciudadesACargar.map(async (ciudad) => {
         try {
@@ -115,7 +118,11 @@ export default function MapView() {
           if (!barrios || barrios.length === 0) return []
           const coordsCiudad = barriosData[ciudad.slug] || {}
           return barrios
-            .filter(b => coordsCiudad[b.slug] && b.pisosIndexados >= 5)
+            .filter(b =>
+              coordsCiudad[b.slug] &&       // tiene coordenadas
+              b.pisosIndexados >= 5 &&       // suficientes pisos
+              !esSlugBasura(b.slug)          // slug con nombre real
+            )
             .map(b => ({
               ...b,
               ciudadSlug: ciudad.slug,
@@ -130,28 +137,37 @@ export default function MapView() {
     ).then(async (resultados) => {
       const barriosSinPrecio = resultados.flat()
 
-    // Fase 1: mostrar marcadores inmediatamente
-    setBarriosVisibles(barriosSinPrecio)
-    setLoadingBarrios(false)
-    setLoadingPrecios(true)
+      // Fase 1: mostrar marcadores inmediatamente sin precio
+      setBarriosVisibles(barriosSinPrecio)
+      setLoadingBarrios(false)
+      setLoadingPrecios(true)
 
-    // Fase 2: fetchear stats y rellenar precios
-    const conPrecios = await Promise.all(
-        barriosSinPrecio.map(async (barrio) => {
-          try {
-            const stats = await fetchStatsBarrio(barrio.ciudadSlug, barrio.slug)
-            return {
-              ...barrio,
-              precioMedio: stats?.precioMes?.media ?? null
-            }
-          } catch {
-            return barrio
-          }
+      // Fase 2: una sola llamada al ranking de barrios para obtener todos los precios
+      // en lugar de N llamadas individuales a /stats/barrio/{ciudad}/{barrio}
+      try {
+        const rankingRes = await fetch('/api/stats/ranking?tipo=barrio&limite=200&orden=asc')
+        if (!rankingRes.ok) throw new Error('ranking failed')
+        const rankingJson = await rankingRes.json()
+        const ranking = rankingJson.ranking ?? []
+
+        // Mapa nombre (lowercase) → precioMedioMes
+        const precioMap = {}
+        ranking.forEach(item => {
+          if (item.zona) precioMap[item.zona.toLowerCase()] = item.precioMedioMes
         })
-      )
 
-      setBarriosVisibles(conPrecios.filter(b => b.precioMedio !== null))
-      setLoadingPrecios(false)
+        const conPrecios = barriosSinPrecio.map(barrio => ({
+          ...barrio,
+          precioMedio: precioMap[barrio.nombre?.toLowerCase()] ?? null
+        }))
+
+        setBarriosVisibles(conPrecios.filter(b => b.precioMedio !== null))
+      } catch {
+        // Si falla el ranking, dejamos marcadores sin precio visibles igualmente
+        setBarriosVisibles(barriosSinPrecio)
+      } finally {
+        setLoadingPrecios(false)
+      }
     }).catch(() => {
       setLoadingBarrios(false)
       setLoadingPrecios(false)
