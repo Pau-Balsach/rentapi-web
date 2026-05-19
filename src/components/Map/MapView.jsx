@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet'
 import useCiudadesStore from '../../store/useCiudadesStore'
-import { fetchCiudades } from '../../hooks/useGeo'
 import coordsData from '../../data/ciudades-coords.json'
 import barriosData from '../../data/barrios-coords.json'
 import CityMarker from './CityMarker'
@@ -13,6 +12,10 @@ const ZOOM_BARRIOS = 11
 
 // Slugs sin nombre real: solo números, guiones, o "s-n"
 const esSlugBasura = (slug) => /^[\d\-]+$/.test(slug) || slug === 's-n'
+
+// Convierte slug a nombre legible: "sant-feliu-de-guixols" → "Sant Feliu De Guixols"
+const slugToNombre = (slug) =>
+  slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
 
 function MapClickHandler({ onMapClick }) {
   useMapEvents({ click: onMapClick })
@@ -40,13 +43,13 @@ export default function MapView() {
   const rankingBarriosCache = useRef(null)
 
   // ── Carga inicial de ciudades ──────────────────────────────────────────────
-  // Una sola llamada al ranking en lugar de N/5 llamadas a /comparar
+  // Sin llamada a /geo/ciudades: construimos la lista desde ciudades-coords.json (local)
+  // y enriquecemos con una sola llamada al ranking para obtener los precios
   useEffect(() => {
     async function cargarDatos() {
       try {
-        // 1. Lista de ciudades con coords (local, sin red)
-        const listaCiudades = await fetchCiudades()
-        const conCoords = listaCiudades.filter(c => coordsData[c.slug])
+        // 1. Lista de ciudades desde JSON local — sin red
+        const slugs = Object.keys(coordsData)
 
         // 2. Una sola llamada para todos los precios
         let rankingData = rankingCiudadesCache.current
@@ -63,13 +66,17 @@ export default function MapView() {
           if (item.zona) precioMap[item.zona.toLowerCase()] = item.precioMedioMes
         })
 
-        const ciudadesCompletas = conCoords
-          .map(c => ({
-            ...c,
-            lat: coordsData[c.slug].lat,
-            lng: coordsData[c.slug].lng,
-            precioMedio: precioMap[c.nombre?.toLowerCase()] ?? precioMap[c.slug] ?? null
-          }))
+        const ciudadesCompletas = slugs
+          .map(slug => {
+            const nombre = slugToNombre(slug)
+            return {
+              slug,
+              nombre,
+              lat: coordsData[slug].lat,
+              lng: coordsData[slug].lng,
+              precioMedio: precioMap[nombre.toLowerCase()] ?? null
+            }
+          })
           .filter(c => c.precioMedio !== null)
 
         setCiudades(ciudadesCompletas)
