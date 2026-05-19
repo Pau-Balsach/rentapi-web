@@ -122,9 +122,9 @@ export default function RankingPage() {
         )}
 
         {!loading && !error && sorted.length > 0 && (
-          <div className="overflow-x-auto rounded-xl border border-gray-800">
+          <div className="overflow-x-auto overflow-y-auto max-h-[70vh] rounded-xl border border-gray-800">
             <table className="w-full text-sm">
-              <thead className="bg-gray-900 text-gray-400 text-xs uppercase tracking-wider">
+              <thead className="bg-gray-900 text-gray-400 text-xs uppercase tracking-wider sticky top-0 z-10">
                 <tr>
                   {COLUMNS.map((col) => (
                     <th
