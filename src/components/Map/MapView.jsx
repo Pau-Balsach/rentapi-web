@@ -1,8 +1,7 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet'
 import useCiudadesStore from '../../store/useCiudadesStore'
-import { fetchCiudades, fetchBarrios } from '../../hooks/useGeo'
-import { fetchComparar, fetchStatsCiudad } from '../../hooks/useStats'
+import { fetchCiudades } from '../../hooks/useGeo'
 import coordsData from '../../data/ciudades-coords.json'
 import barriosData from '../../data/barrios-coords.json'
 import CityMarker from './CityMarker'
@@ -11,6 +10,9 @@ import CityPanel from '../Panel/CityPanel'
 import BarrioPanel from '../Panel/BarrioPanel'
 
 const ZOOM_BARRIOS = 11
+
+// Slugs sin nombre real: solo números, guiones, o "s-n"
+const esSlugBasura = (slug) => /^[\d\-]+$/.test(slug) || slug === 's-n'
 
 function MapClickHandler({ onMapClick }) {
   useMapEvents({ click: onMapClick })
@@ -31,55 +33,42 @@ export default function MapView() {
   const [zoom, setZoom] = useState(8)
   const [barriosVisibles, setBarriosVisibles] = useState([])
   const [loadingBarrios, setLoadingBarrios] = useState(false)
-  const [loadingPrecios, setLoadingPrecios] = useState(false)
   const [selectedBarrio, setSelectedBarrio] = useState(null)
 
+  // Cache de rankings para no repetir fetch al hacer zoom in/out
+  const rankingCiudadesCache = useRef(null)
+  const rankingBarriosCache = useRef(null)
+
   // ── Carga inicial de ciudades ──────────────────────────────────────────────
+  // Una sola llamada al ranking en lugar de N/5 llamadas a /comparar
   useEffect(() => {
     async function cargarDatos() {
       try {
+        // 1. Lista de ciudades con coords (local, sin red)
         const listaCiudades = await fetchCiudades()
         const conCoords = listaCiudades.filter(c => coordsData[c.slug])
 
-        const allSlugs = conCoords.map(c => c.slug)
-        const grupos = []
-        for (let j = 0; j < allSlugs.length; j += 5) {
-          grupos.push(allSlugs.slice(j, j + 5))
-        }
-        if (grupos.length > 1 && grupos[grupos.length - 1].length === 1) {
-          const sobrante = grupos.pop()[0]
-          const penultimo = grupos.pop()
-          penultimo.push(sobrante)
-          const mitad = Math.ceil(penultimo.length / 2)
-          grupos.push(penultimo.slice(0, mitad))
-          grupos.push(penultimo.slice(mitad))
+        // 2. Una sola llamada para todos los precios
+        let rankingData = rankingCiudadesCache.current
+        if (!rankingData) {
+          const res = await fetch('/api/stats/ranking?tipo=ciudad&limite=200&orden=asc')
+          if (!res.ok) throw new Error(`Error ${res.status}`)
+          rankingData = await res.json()
+          rankingCiudadesCache.current = rankingData
         }
 
+        const ranking = rankingData.ranking ?? []
         const precioMap = {}
-        if (conCoords.length < 2) {
-          if (conCoords.length === 1) {
-            const stats = await fetchStatsCiudad(conCoords[0].slug)
-            precioMap[conCoords[0].slug] = stats.precioMes?.media ?? null
-          }
-        } else {
-          const resultados = await Promise.all(
-            grupos.map(slugs => fetchComparar(slugs))
-          )
-          resultados.forEach(r => {
-            if (r?.comparativa) {
-              r.comparativa.forEach(item => {
-                precioMap[item.zona.toLowerCase()] = item.precioMedioMes
-              })
-            }
-          })
-        }
+        ranking.forEach(item => {
+          if (item.zona) precioMap[item.zona.toLowerCase()] = item.precioMedioMes
+        })
 
         const ciudadesCompletas = conCoords
           .map(c => ({
             ...c,
             lat: coordsData[c.slug].lat,
             lng: coordsData[c.slug].lng,
-            precioMedio: precioMap[c.slug] ?? null
+            precioMedio: precioMap[c.nombre?.toLowerCase()] ?? precioMap[c.slug] ?? null
           }))
           .filter(c => c.precioMedio !== null)
 
@@ -94,63 +83,54 @@ export default function MapView() {
   }, [])
 
   // ── Carga barrios cuando zoom supera el umbral ─────────────────────────────
+  // Sin llamadas a /geo/barrios: construimos la lista desde barrios-coords.json (local)
+  // y enriquecemos con una sola llamada al ranking de barrios
   useEffect(() => {
     if (zoom < ZOOM_BARRIOS) {
       setBarriosVisibles([])
       return
     }
 
-    const ciudadesACargar = selectedCiudad
-      ? ciudades.filter(c => c.slug === selectedCiudad.slug)
-      : ciudades
-
-    if (ciudadesACargar.length === 0) return
-
     setLoadingBarrios(true)
 
-    // Filtra slugs numéricos o sin nombre real ("1", "42", "s-n", "14-16")
-    const esSlugBasura = (slug) => /^[\d\-]+$/.test(slug) || slug === 's-n'
-
-    Promise.all(
-      ciudadesACargar.map(async (ciudad) => {
-        try {
-          const barrios = await fetchBarrios(ciudad.slug)
-          if (!barrios || barrios.length === 0) return []
-          const coordsCiudad = barriosData[ciudad.slug] || {}
-          return barrios
-            .filter(b =>
-              coordsCiudad[b.slug] &&       // tiene coordenadas
-              b.pisosIndexados >= 5 &&       // suficientes pisos
-              !esSlugBasura(b.slug)          // slug con nombre real
-            )
-            .map(b => ({
-              ...b,
-              ciudadSlug: ciudad.slug,
-              lat: coordsCiudad[b.slug].lat,
-              lng: coordsCiudad[b.slug].lng,
-              precioMedio: null
-            }))
-        } catch {
-          return []
-        }
-      })
-    ).then(async (resultados) => {
-      const barriosSinPrecio = resultados.flat()
-
-      // Fase 1: mostrar marcadores inmediatamente sin precio
-      setBarriosVisibles(barriosSinPrecio)
-      setLoadingBarrios(false)
-      setLoadingPrecios(true)
-
-      // Fase 2: una sola llamada al ranking de barrios para obtener todos los precios
-      // en lugar de N llamadas individuales a /stats/barrio/{ciudad}/{barrio}
+    async function cargarBarrios() {
       try {
-        const rankingRes = await fetch('/api/stats/ranking?tipo=barrio&limite=200&orden=asc')
-        if (!rankingRes.ok) throw new Error('ranking failed')
-        const rankingJson = await rankingRes.json()
-        const ranking = rankingJson.ranking ?? []
+        // 1. Construir lista de barrios candidatos desde el JSON local
+        //    sin ninguna llamada de red a /geo/barrios
+        const ciudadesACargar = selectedCiudad
+          ? ciudades.filter(c => c.slug === selectedCiudad.slug)
+          : ciudades
 
-        // Mapa nombre (lowercase) → precioMedioMes
+        const barriosSinPrecio = ciudadesACargar.flatMap(ciudad => {
+          const coordsCiudad = barriosData[ciudad.slug] || {}
+          return Object.entries(coordsCiudad)
+            .filter(([slug]) => !esSlugBasura(slug))
+            .map(([slug, coords]) => ({
+              slug,
+              nombre: slug
+                .replace(/-/g, ' ')
+                .replace(/\b\w/g, l => l.toUpperCase()),
+              ciudadSlug: ciudad.slug,
+              lat: coords.lat,
+              lng: coords.lng,
+              precioMedio: null,
+            }))
+        })
+
+        // Mostrar marcadores inmediatamente (sin precio aún)
+        setBarriosVisibles(barriosSinPrecio)
+        setLoadingBarrios(false)
+
+        // 2. Una sola llamada al ranking para obtener todos los precios
+        let rankingData = rankingBarriosCache.current
+        if (!rankingData) {
+          const res = await fetch('/api/stats/ranking?tipo=barrio&limite=200&orden=asc')
+          if (!res.ok) throw new Error('ranking barrios failed')
+          rankingData = await res.json()
+          rankingBarriosCache.current = rankingData
+        }
+
+        const ranking = rankingData.ranking ?? []
         const precioMap = {}
         ranking.forEach(item => {
           if (item.zona) precioMap[item.zona.toLowerCase()] = item.precioMedioMes
@@ -163,16 +143,11 @@ export default function MapView() {
 
         setBarriosVisibles(conPrecios.filter(b => b.precioMedio !== null))
       } catch {
-        // Si falla el ranking, dejamos marcadores sin precio visibles igualmente
-        setBarriosVisibles(barriosSinPrecio)
-      } finally {
-        setLoadingPrecios(false)
+        setLoadingBarrios(false)
       }
-    }).catch(() => {
-      setLoadingBarrios(false)
-      setLoadingPrecios(false)
-    })
+    }
 
+    cargarBarrios()
   }, [zoom, ciudades, selectedCiudad])
 
   // ── Handlers ───────────────────────────────────────────────────────────────
@@ -200,13 +175,13 @@ export default function MapView() {
 
   return (
     <div className="relative w-full h-full">
-      {(loading || loadingBarrios || loadingPrecios) && (
+      {(loading || loadingBarrios) && (
         <div className="absolute top-16 left-1/2 -translate-x-1/2 z-[1001] bg-white shadow-lg rounded-full px-4 py-2 text-sm text-gray-600 font-medium flex items-center gap-2">
           <svg className="animate-spin h-4 w-4 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
           </svg>
-          {loading ? 'Cargando ciudades...' : loadingBarrios ? 'Cargando barrios...' : 'Cargando precios...'}
+          {loading ? 'Cargando ciudades...' : 'Cargando barrios...'}
         </div>
       )}
       {error && (
