@@ -117,10 +117,6 @@ export default function MapView() {
             }))
         })
 
-        // Mostrar marcadores inmediatamente (sin precio aún)
-        setBarriosVisibles(barriosSinPrecio)
-        setLoadingBarrios(false)
-
         // 2. Una sola llamada al ranking para obtener todos los precios
         let rankingData = rankingBarriosCache.current
         if (!rankingData) {
@@ -143,6 +139,8 @@ export default function MapView() {
 
         setBarriosVisibles(conPrecios.filter(b => b.precioMedio !== null))
       } catch {
+        setBarriosVisibles([])
+      } finally {
         setLoadingBarrios(false)
       }
     }
