@@ -29,9 +29,11 @@ export default function BarriosList({ barrios, ciudadSlug }) {
     return <p className="text-sm text-gray-400 text-center py-2">Sin barrios disponibles</p>
   }
 
+  const barriosFiltrados = barrios.filter(b => (b.pisosIndexados ?? 0) >= 2)
+
   return (
     <div className="space-y-2">
-      {barrios.map(barrio => (
+      {barriosFiltrados.map(barrio => (
         <div key={barrio.slug}>
           <button
             onClick={() => handleSelectBarrio(barrio)}
