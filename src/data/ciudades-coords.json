@@ -1,61 +1,1246 @@
 {
-  "barcelona": { "lat": 41.3874, "lng": 2.1686 },
-  "badalona": { "lat": 41.4500, "lng": 2.2474 },
-  "hospitalet-de-llobregat": { "lat": 41.3598, "lng": 2.1000 },
-  "terrassa": { "lat": 41.5632, "lng": 2.0089 },
-  "sabadell": { "lat": 41.5433, "lng": 2.1094 },
-  "mataro": { "lat": 41.5381, "lng": 2.4445 },
-  "santa-coloma-de-gramenet": { "lat": 41.4517, "lng": 2.2077 },
-  "cornella-de-llobregat": { "lat": 41.3500, "lng": 2.0833 },
-  "sant-boi-de-llobregat": { "lat": 41.3422, "lng": 2.0397 },
-  "sant-feliu-de-llobregat": { "lat": 41.3833, "lng": 2.0500 },
-  "esplugues-de-llobregat": { "lat": 41.3769, "lng": 2.0864 },
-  "granollers": { "lat": 41.6077, "lng": 2.2874 },
-  "cerdanyola-del-valles": { "lat": 41.4906, "lng": 2.1406 },
-  "castelldefels": { "lat": 41.2794, "lng": 1.9769 },
-  "viladecans": { "lat": 41.3167, "lng": 2.0333 },
-  "el-prat-de-llobregat": { "lat": 41.3269, "lng": 2.0983 },
-  "mollet-del-valles": { "lat": 41.5368, "lng": 2.2117 },
-  "rubi": { "lat": 41.4933, "lng": 2.0333 },
-  "sant-adria-de-besos": { "lat": 41.4197, "lng": 2.2269 },
-  "premia-de-mar": { "lat": 41.4933, "lng": 2.3667 },
-  "vilafranca-del-penedes": { "lat": 41.3469, "lng": 1.6994 },
-  "vilanova-i-la-geltru": { "lat": 41.2233, "lng": 1.7253 },
-  "sitges": { "lat": 41.2369, "lng": 1.8144 },
-  "calafell": { "lat": 41.2000, "lng": 1.5667 },
-  "el-vendrell": { "lat": 41.2178, "lng": 1.5358 },
-  "tarragona": { "lat": 41.1189, "lng": 1.2445 },
-  "reus": { "lat": 41.1561, "lng": 1.1065 },
-  "salou": { "lat": 41.0756, "lng": 1.1406 },
-  "cambrils": { "lat": 41.0658, "lng": 1.0578 },
-  "torredembarra": { "lat": 41.1500, "lng": 1.4000 },
-  "valls": { "lat": 41.2869, "lng": 1.2497 },
-  "tortosa": { "lat": 40.8122, "lng": 0.5211 },
-  "amposta": { "lat": 40.7069, "lng": 0.5797 },
-  "gandesa": { "lat": 41.0561, "lng": 0.4569 },
-  "lleida": { "lat": 41.6176, "lng": 0.6200 },
-  "igualada": { "lat": 41.5792, "lng": 1.6194 },
-  "manresa": { "lat": 41.7281, "lng": 1.8239 },
-  "berga": { "lat": 42.1011, "lng": 1.8461 },
-  "vic": { "lat": 41.9306, "lng": 2.2544 },
-  "manlleu": { "lat": 42.0028, "lng": 2.2842 },
-  "girona": { "lat": 41.9794, "lng": 2.8214 },
-  "salt": { "lat": 41.9750, "lng": 2.7933 },
-  "blanes": { "lat": 41.6750, "lng": 2.7906 },
-  "lloret-de-mar": { "lat": 41.6997, "lng": 2.8414 },
-  "figueres": { "lat": 42.2669, "lng": 2.9614 },
-  "olot": { "lat": 42.1819, "lng": 2.4897 },
-  "palafrugell": { "lat": 41.9144, "lng": 3.1631 },
-  "roses": { "lat": 42.2669, "lng": 3.1769 },
-  "banyoles": { "lat": 42.1167, "lng": 2.7667 },
-  "palamos": { "lat": 41.8486, "lng": 3.1303 },
-  "castello-d-empuries": { "lat": 42.2561, "lng": 3.0769 },
-  "sant-feliu-de-guixols": { "lat": 41.7819, "lng": 3.0319 },
-  "montgat": { "lat": 41.4736, "lng": 2.2747 },
-  "gava": { "lat": 41.3033, "lng": 2.0044 },
-  "palleja": { "lat": 41.3833, "lng": 1.9833 },
-  "pineda-de-mar": { "lat": 41.6267, "lng": 2.6808 },
-  "calella": { "lat": 41.6133, "lng": 2.6583 },
-  "vilassar-de-mar": { "lat": 41.5028, "lng": 2.3919 },
-  "sitges": { "lat": 41.2369, "lng": 1.8144 }
+  "agullana": {
+    "lat": 42.3938409,
+    "lng": 2.8469168
+  },
+  "alamus-els": {
+    "lat": 41.6156316,
+    "lng": 0.7389985
+  },
+  "albinyana": {
+    "lat": 41.2454739,
+    "lng": 1.486748
+  },
+  "albons": {
+    "lat": 42.1058271,
+    "lng": 3.0849746
+  },
+  "alcanar": {
+    "lat": 40.5438634,
+    "lng": 0.4808409
+  },
+  "alcarras": {
+    "lat": 41.5632578,
+    "lng": 0.5240396
+  },
+  "alcoletge": {
+    "lat": 41.6472222,
+    "lng": 0.6944444
+  },
+  "aldover": {
+    "lat": 40.8800537,
+    "lng": 0.5000194
+  },
+  "alforja": {
+    "lat": 41.2099763,
+    "lng": 0.9750606
+  },
+  "almacelles": {
+    "lat": 41.7294989,
+    "lng": 0.4404763
+  },
+  "alp": {
+    "lat": 41.8285644,
+    "lng": 0.5473885
+  },
+  "alpicat": {
+    "lat": 41.6666421,
+    "lng": 0.5554774
+  },
+  "alt-aneu": {
+    "lat": 42.6903552,
+    "lng": 1.0624833
+  },
+  "altafulla": {
+    "lat": 41.1423467,
+    "lng": 1.3768704
+  },
+  "amposta": {
+    "lat": 40.7069,
+    "lng": 0.5797
+  },
+  "arboli": {
+    "lat": 41.2425941,
+    "lng": 0.9487676
+  },
+  "arbucies": {
+    "lat": 41.8160629,
+    "lng": 2.5141453
+  },
+  "arenys-de-mar": {
+    "lat": 41.5797031,
+    "lng": 2.5491562
+  },
+  "argentona": {
+    "lat": 41.5554326,
+    "lng": 2.4002787
+  },
+  "arres": {
+    "lat": 42.7583345,
+    "lng": 0.7090562
+  },
+  "arro": {
+    "lat": 42.7444014,
+    "lng": 0.7130327
+  },
+  "arties": {
+    "lat": 42.6997596,
+    "lng": 0.8766886
+  },
+  "asco": {
+    "lat": 41.1805311,
+    "lng": 0.5679989
+  },
+  "aubert": {
+    "lat": 42.7309108,
+    "lng": 0.7782641
+  },
+  "badalona": {
+    "lat": 41.45,
+    "lng": 2.2474
+  },
+  "badia-del-valles": {
+    "lat": 41.5075702,
+    "lng": 2.1153773
+  },
+  "bagergue": {
+    "lat": 42.7190997,
+    "lng": 0.9161883
+  },
+  "banyoles": {
+    "lat": 42.1167,
+    "lng": 2.7667
+  },
+  "baqueira": {
+    "lat": 42.6988865,
+    "lng": 0.9347175
+  },
+  "barcelona": {
+    "lat": 41.3874,
+    "lng": 2.1686
+  },
+  "begur": {
+    "lat": 41.9541918,
+    "lng": 3.2088349
+  },
+  "bellpuig": {
+    "lat": 41.6254383,
+    "lng": 1.0117111
+  },
+  "bellver-de-cerdanya": {
+    "lat": 42.3702061,
+    "lng": 1.7745202
+  },
+  "berga": {
+    "lat": 42.1011,
+    "lng": 1.8461
+  },
+  "besalu": {
+    "lat": 42.1986443,
+    "lng": 2.6959559
+  },
+  "bescano": {
+    "lat": 41.9670349,
+    "lng": 2.7389937
+  },
+  "betren": {
+    "lat": 42.6979727,
+    "lng": 0.8059505
+  },
+  "blancafort": {
+    "lat": 41.4388964,
+    "lng": 1.1593801
+  },
+  "blanes": {
+    "lat": 41.675,
+    "lng": 2.7906
+  },
+  "bolvir": {
+    "lat": 42.417885,
+    "lng": 1.8798183
+  },
+  "bonavista": {
+    "lat": 41.1191749,
+    "lng": 1.1919093
+  },
+  "bordils": {
+    "lat": 42.0440682,
+    "lng": 2.9116018
+  },
+  "bot": {
+    "lat": 41.0094492,
+    "lng": 0.385667
+  },
+  "botarell": {
+    "lat": 41.1362847,
+    "lng": 0.9897786
+  },
+  "breda": {
+    "lat": 41.7484044,
+    "lng": 2.5613326
+  },
+  "butsenit": {
+    "lat": 41.8007286,
+    "lng": 0.9928707
+  },
+  "cabra-del-camp": {
+    "lat": 41.3952451,
+    "lng": 1.2772435
+  },
+  "cabrils": {
+    "lat": 41.5262354,
+    "lng": 2.3676258
+  },
+  "cadaques": {
+    "lat": 42.2893484,
+    "lng": 3.2752159
+  },
+  "calafell": {
+    "lat": 41.2,
+    "lng": 1.5667
+  },
+  "caldes-d-estrac": {
+    "lat": 41.5719788,
+    "lng": 2.5277607
+  },
+  "caldes-de-malavella": {
+    "lat": 41.8282907,
+    "lng": 2.8073845
+  },
+  "calella": {
+    "lat": 41.6133,
+    "lng": 2.6583
+  },
+  "calonge": {
+    "lat": 41.7642502,
+    "lng": 1.4820028
+  },
+  "camarles": {
+    "lat": 40.7735425,
+    "lng": 0.6738724
+  },
+  "cambrils": {
+    "lat": 41.0658,
+    "lng": 1.0578
+  },
+  "camprodon": {
+    "lat": 42.3127896,
+    "lng": 2.364926
+  },
+  "canet-d-adri": {
+    "lat": 42.0332009,
+    "lng": 2.7377666
+  },
+  "canet-de-mar": {
+    "lat": 41.5900933,
+    "lng": 2.5777998
+  },
+  "canovelles": {
+    "lat": 41.6173948,
+    "lng": 2.28288
+  },
+  "cardedeu": {
+    "lat": 41.6385167,
+    "lng": 2.3558408
+  },
+  "cassa-de-la-selva": {
+    "lat": 41.8874685,
+    "lng": 2.8742461
+  },
+  "castell-platja-d-aro": {
+    "lat": 41.8186325,
+    "lng": 3.0451272
+  },
+  "castelldefels": {
+    "lat": 41.2794,
+    "lng": 1.9769
+  },
+  "castello-d-empuries": {
+    "lat": 42.2561,
+    "lng": 3.0769
+  },
+  "castelltercol": {
+    "lat": 41.7503071,
+    "lng": 2.1230793
+  },
+  "castellvell-del-camp": {
+    "lat": 41.1802558,
+    "lng": 1.0978312
+  },
+  "cava": {
+    "lat": 41.0154974,
+    "lng": 0.1888018
+  },
+  "celra": {
+    "lat": 42.0247111,
+    "lng": 2.8789816
+  },
+  "cerdanyola-del-valles": {
+    "lat": 41.4906,
+    "lng": 2.1406
+  },
+  "cervello": {
+    "lat": 41.3687006,
+    "lng": 2.0174512
+  },
+  "cervia-de-ter": {
+    "lat": 42.0676956,
+    "lng": 2.9122136
+  },
+  "cistella": {
+    "lat": 42.268711,
+    "lng": 2.8472717
+  },
+  "colera": {
+    "lat": 42.4036867,
+    "lng": 3.1489254
+  },
+  "collbato": {
+    "lat": 41.570256,
+    "lng": 1.8285814
+  },
+  "colomers": {
+    "lat": 42.0841561,
+    "lng": 2.9870811
+  },
+  "constanti": {
+    "lat": 41.1528113,
+    "lng": 1.2151822
+  },
+  "corbera-de-llobregat": {
+    "lat": 41.4164771,
+    "lng": 1.927753
+  },
+  "cornella-de-llobregat": {
+    "lat": 41.35,
+    "lng": 2.0833
+  },
+  "creixell": {
+    "lat": 41.1677349,
+    "lng": 1.4407074
+  },
+  "crespia": {
+    "lat": 42.1877796,
+    "lng": 2.7982926
+  },
+  "cubelles": {
+    "lat": 41.2083363,
+    "lng": 1.6730541
+  },
+  "cunit": {
+    "lat": 41.197596,
+    "lng": 1.6344596
+  },
+  "das": {
+    "lat": 42.3636176,
+    "lng": 1.8713459
+  },
+  "deltebre": {
+    "lat": 40.7203938,
+    "lng": 0.7243445
+  },
+  "el-bruc": {
+    "lat": 41.5792357,
+    "lng": 1.7812982
+  },
+  "el-catllar": {
+    "lat": 41.1748794,
+    "lng": 1.3256814
+  },
+  "el-masnou": {
+    "lat": 41.4796899,
+    "lng": 2.3118347
+  },
+  "el-perello": {
+    "lat": 40.8754052,
+    "lng": 0.7123762
+  },
+  "el-pla-de-santa-maria": {
+    "lat": 41.3636282,
+    "lng": 1.2907491
+  },
+  "el-pont-de-bar": {
+    "lat": 42.3792894,
+    "lng": 1.6117658
+  },
+  "el-prat-de-llobregat": {
+    "lat": 41.3269,
+    "lng": 2.0983
+  },
+  "el-vendrell": {
+    "lat": 41.2178,
+    "lng": 1.5358
+  },
+  "empuriabrava": {
+    "lat": 42.2591184,
+    "lng": 3.1133832
+  },
+  "es-bordes": {
+    "lat": 41.0154974,
+    "lng": 0.1888018
+  },
+  "espinelves": {
+    "lat": 41.8689558,
+    "lng": 2.4173566
+  },
+  "esplugues-de-llobregat": {
+    "lat": 41.3769,
+    "lng": 2.0864
+  },
+  "espot": {
+    "lat": 42.5762878,
+    "lng": 1.0884847
+  },
+  "esterri-d-aneu": {
+    "lat": 42.6274685,
+    "lng": 1.1228821
+  },
+  "figueres": {
+    "lat": 42.2669,
+    "lng": 2.9614
+  },
+  "figuerola-del-camp": {
+    "lat": 41.3720741,
+    "lng": 1.265571
+  },
+  "flix": {
+    "lat": 41.2340447,
+    "lng": 0.5560861
+  },
+  "foixa": {
+    "lat": 42.0542404,
+    "lng": 3.0098912
+  },
+  "fontanals-de-cerdanya": {
+    "lat": 42.3844794,
+    "lng": 1.9112934
+  },
+  "fontanilles": {
+    "lat": 42.0111362,
+    "lng": 3.1065584
+  },
+  "fontcoberta": {
+    "lat": 42.1425379,
+    "lng": 2.7897817
+  },
+  "foradada": {
+    "lat": 41.876869,
+    "lng": 1.0131802
+  },
+  "forallac": {
+    "lat": 41.9405813,
+    "lng": 3.0817246
+  },
+  "fornells-de-la-selva": {
+    "lat": 41.9319675,
+    "lng": 2.8090343
+  },
+  "gandesa": {
+    "lat": 41.0561,
+    "lng": 0.4569
+  },
+  "garos": {
+    "lat": 42.6996902,
+    "lng": 0.8458524
+  },
+  "gausac": {
+    "lat": 42.7086577,
+    "lng": 0.7911834
+  },
+  "gava": {
+    "lat": 41.3033,
+    "lng": 2.0044
+  },
+  "ger": {
+    "lat": 42.4115726,
+    "lng": 1.8472085
+  },
+  "gesa": {
+    "lat": 41.6370212,
+    "lng": 2.3534079
+  },
+  "girona": {
+    "lat": 41.9794,
+    "lng": 2.8214
+  },
+  "granollers": {
+    "lat": 41.6077,
+    "lng": 2.2874
+  },
+  "granyena-de-les-garrigues": {
+    "lat": 41.4329666,
+    "lng": 0.6491956
+  },
+  "gualta": {
+    "lat": 42.0229382,
+    "lng": 3.1180207
+  },
+  "guils-de-cerdanya": {
+    "lat": 42.4479402,
+    "lng": 1.879737
+  },
+  "guimera": {
+    "lat": 41.5646664,
+    "lng": 1.1834968
+  },
+  "guixers": {
+    "lat": 42.1435607,
+    "lng": 1.6678083
+  },
+  "hospitalet-de-llobregat": {
+    "lat": 41.3598,
+    "lng": 2.1
+  },
+  "igualada": {
+    "lat": 41.5792,
+    "lng": 1.6194
+  },
+  "isona-i-conca-della": {
+    "lat": 42.1290793,
+    "lng": 1.0046633
+  },
+  "isovol": {
+    "lat": 42.3781028,
+    "lng": 1.8175789
+  },
+  "l-albiol": {
+    "lat": 41.2518657,
+    "lng": 1.0897995
+  },
+  "l-ametlla-de-mar": {
+    "lat": 40.8838957,
+    "lng": 0.8024645
+  },
+  "l-ametlla-del-valles": {
+    "lat": 41.669334,
+    "lng": 2.2614527
+  },
+  "l-ampolla": {
+    "lat": 40.8122038,
+    "lng": 0.706957
+  },
+  "l-armentera": {
+    "lat": 42.1718706,
+    "lng": 3.0741446
+  },
+  "l-escala": {
+    "lat": 42.113535,
+    "lng": 3.1387422
+  },
+  "l-hospitalet-de-l-infant": {
+    "lat": 40.9985238,
+    "lng": 0.8493534
+  },
+  "la-bisbal-d-emporda": {
+    "lat": 41.9598687,
+    "lng": 3.039616
+  },
+  "la-bisbal-del-penedes": {
+    "lat": 41.2778415,
+    "lng": 1.4905591
+  },
+  "la-coma-i-la-pedra": {
+    "lat": 42.1744986,
+    "lng": 1.5817024
+  },
+  "la-garriga": {
+    "lat": 41.6849111,
+    "lng": 2.2865796
+  },
+  "la-pera": {
+    "lat": 42.0205464,
+    "lng": 2.9736244
+  },
+  "la-pineda": {
+    "lat": 41.7015532,
+    "lng": 2.1922767
+  },
+  "la-pobla-de-montornes": {
+    "lat": 41.1784822,
+    "lng": 1.4142074
+  },
+  "la-pobla-de-segur": {
+    "lat": 42.2473665,
+    "lng": 0.9672725
+  },
+  "la-tallada-d-emporda": {
+    "lat": 42.0798863,
+    "lng": 3.0555614
+  },
+  "la-vall-d-en-bas": {
+    "lat": 42.1250185,
+    "lng": 2.4356716
+  },
+  "la-vall-de-bianya": {
+    "lat": 42.2415208,
+    "lng": 2.4326305
+  },
+  "la-vall-de-boi": {
+    "lat": 42.5428062,
+    "lng": 0.8675631
+  },
+  "les": {
+    "lat": 41.2064179,
+    "lng": 0.2419394
+  },
+  "les-franqueses-del-valles": {
+    "lat": 41.647559,
+    "lng": 2.3091778
+  },
+  "les-oluges": {
+    "lat": 41.6967254,
+    "lng": 1.3200824
+  },
+  "les-preses": {
+    "lat": 42.1450901,
+    "lng": 2.4592158
+  },
+  "linyola": {
+    "lat": 41.7104501,
+    "lng": 0.9037626
+  },
+  "lladorre": {
+    "lat": 42.6209464,
+    "lng": 1.2494301
+  },
+  "llagostera": {
+    "lat": 41.8289064,
+    "lng": 2.8920386
+  },
+  "llanars": {
+    "lat": 42.3207265,
+    "lng": 2.344001
+  },
+  "llanca": {
+    "lat": 42.3617316,
+    "lng": 3.1511804
+  },
+  "llavorsi": {
+    "lat": 42.4957479,
+    "lng": 1.210519
+  },
+  "lleida": {
+    "lat": 41.6176,
+    "lng": 0.62
+  },
+  "llivia": {
+    "lat": 42.4640786,
+    "lng": 1.9804293
+  },
+  "lloret-de-mar": {
+    "lat": 41.6997,
+    "lng": 2.8414
+  },
+  "macanet-de-la-selva": {
+    "lat": 41.7774422,
+    "lng": 2.7309252
+  },
+  "madremanya": {
+    "lat": 41.9900799,
+    "lng": 2.9568764
+  },
+  "malgrat-de-mar": {
+    "lat": 41.6459118,
+    "lng": 2.7414054
+  },
+  "manlleu": {
+    "lat": 42.0028,
+    "lng": 2.2842
+  },
+  "manresa": {
+    "lat": 41.7281,
+    "lng": 1.8239
+  },
+  "martorell": {
+    "lat": 41.4769177,
+    "lng": 1.9283971
+  },
+  "martorelles": {
+    "lat": 41.52851,
+    "lng": 2.2374755
+  },
+  "matadepera": {
+    "lat": 41.6012311,
+    "lng": 2.0275199
+  },
+  "mataro": {
+    "lat": 41.5381,
+    "lng": 2.4445
+  },
+  "mollerussa": {
+    "lat": 41.6298226,
+    "lng": 0.8937727
+  },
+  "mollet-de-peralada": {
+    "lat": 42.3595501,
+    "lng": 2.9999085
+  },
+  "mollet-del-valles": {
+    "lat": 41.5368,
+    "lng": 2.2117
+  },
+  "monells-i-sant-sadurni-de-l-heura": {
+    "lat": 41.9295183,
+    "lng": 2.9619312
+  },
+  "mont": {
+    "lat": 41.5471739,
+    "lng": 2.2052277
+  },
+  "mont-ras": {
+    "lat": 41.9080196,
+    "lng": 3.144796
+  },
+  "mont-roig-del-camp": {
+    "lat": 41.0846728,
+    "lng": 0.9613021
+  },
+  "montagut": {
+    "lat": 42.2309257,
+    "lng": 2.5967415
+  },
+  "montblanc": {
+    "lat": 41.3762309,
+    "lng": 1.1620703
+  },
+  "montbrio-del-camp": {
+    "lat": 41.1200937,
+    "lng": 1.0057341
+  },
+  "montella-i-martinet": {
+    "lat": 42.3229253,
+    "lng": 1.6931213
+  },
+  "montgat": {
+    "lat": 41.4736,
+    "lng": 2.2747
+  },
+  "montoliu-de-segarra": {
+    "lat": 41.5900878,
+    "lng": 1.2698212
+  },
+  "mora-d-ebre": {
+    "lat": 41.0893373,
+    "lng": 0.6412887
+  },
+  "mora-la-nova": {
+    "lat": 41.0933242,
+    "lng": 0.6680965
+  },
+  "navata": {
+    "lat": 42.2248425,
+    "lng": 2.8584815
+  },
+  "olivella": {
+    "lat": 41.3103129,
+    "lng": 1.8114946
+  },
+  "olot": {
+    "lat": 42.1819,
+    "lng": 2.4897
+  },
+  "omells-de-na-gaia-els": {
+    "lat": 41.5003209,
+    "lng": 1.0749613
+  },
+  "ordis": {
+    "lat": 42.2185591,
+    "lng": 2.9072143
+  },
+  "palafrugell": {
+    "lat": 41.9144,
+    "lng": 3.1631
+  },
+  "palamos": {
+    "lat": 41.8486,
+    "lng": 3.1303
+  },
+  "palau-sator": {
+    "lat": 41.9897891,
+    "lng": 3.1103856
+  },
+  "palleja": {
+    "lat": 41.3833,
+    "lng": 1.9833
+  },
+  "pals": {
+    "lat": 41.9709891,
+    "lng": 3.1460371
+  },
+  "pardines": {
+    "lat": 42.312731,
+    "lng": 2.2139864
+  },
+  "peralada": {
+    "lat": 42.3085047,
+    "lng": 3.0089916
+  },
+  "piera": {
+    "lat": 41.5216923,
+    "lng": 1.7526335
+  },
+  "pineda-de-mar": {
+    "lat": 41.6267,
+    "lng": 2.6808
+  },
+  "pla-de-l-ermita": {
+    "lat": 42.5140097,
+    "lng": 0.8570635
+  },
+  "porqueres": {
+    "lat": 42.1226823,
+    "lng": 2.7254945
+  },
+  "premia-de-dalt": {
+    "lat": 41.5055692,
+    "lng": 2.3458624
+  },
+  "premia-de-mar": {
+    "lat": 41.4933,
+    "lng": 2.3667
+  },
+  "prullans": {
+    "lat": 42.3803293,
+    "lng": 1.7364774
+  },
+  "puigcerda": {
+    "lat": 42.4317966,
+    "lng": 1.9278693
+  },
+  "quart": {
+    "lat": 41.9401591,
+    "lng": 2.8413516
+  },
+  "regencos": {
+    "lat": 41.9523563,
+    "lng": 3.1687852
+  },
+  "reus": {
+    "lat": 41.1561,
+    "lng": 1.1065
+  },
+  "rialp": {
+    "lat": 42.4430046,
+    "lng": 1.1354914
+  },
+  "ribes-de-freser": {
+    "lat": 42.3057283,
+    "lng": 2.167817
+  },
+  "ripoll": {
+    "lat": 42.1982391,
+    "lng": 2.1932496
+  },
+  "riudellots-de-la-selva": {
+    "lat": 41.8954981,
+    "lng": 2.8022296
+  },
+  "roda-de-bera": {
+    "lat": 41.1857961,
+    "lng": 1.4569904
+  },
+  "roquetes": {
+    "lat": 40.8203657,
+    "lng": 0.50343
+  },
+  "roses": {
+    "lat": 42.2669,
+    "lng": 3.1769
+  },
+  "rossello": {
+    "lat": 41.694584,
+    "lng": 0.592262
+  },
+  "rubi": {
+    "lat": 41.4933,
+    "lng": 2.0333
+  },
+  "rupia": {
+    "lat": 42.0153691,
+    "lng": 3.0092668
+  },
+  "sabadell": {
+    "lat": 41.5433,
+    "lng": 2.1094
+  },
+  "salardu": {
+    "lat": 42.7082581,
+    "lng": 0.9049914
+  },
+  "salas-de-pallars": {
+    "lat": 42.2120193,
+    "lng": 0.932087
+  },
+  "salomo": {
+    "lat": 41.2377358,
+    "lng": 1.37692
+  },
+  "salou": {
+    "lat": 41.0756,
+    "lng": 1.1406
+  },
+  "salt": {
+    "lat": 41.975,
+    "lng": 2.7933
+  },
+  "sant-adria-de-besos": {
+    "lat": 41.4197,
+    "lng": 2.2269
+  },
+  "sant-andreu-de-llavaneres": {
+    "lat": 41.5739524,
+    "lng": 2.4828158
+  },
+  "sant-boi-de-llobregat": {
+    "lat": 41.3422,
+    "lng": 2.0397
+  },
+  "sant-boi-de-llucanes": {
+    "lat": 42.0578411,
+    "lng": 2.1511135
+  },
+  "sant-carles-de-la-rapita": {
+    "lat": 41.5897621,
+    "lng": 2.2085357
+  },
+  "sant-celoni": {
+    "lat": 41.6895041,
+    "lng": 2.4914526
+  },
+  "sant-cugat-del-valles": {
+    "lat": 41.4728432,
+    "lng": 2.0817809
+  },
+  "sant-esteve-sesrovires": {
+    "lat": 41.4932429,
+    "lng": 1.8747348
+  },
+  "sant-feliu-de-buixalleu": {
+    "lat": 41.7913017,
+    "lng": 2.5861463
+  },
+  "sant-feliu-de-codines": {
+    "lat": 41.6889012,
+    "lng": 2.1645642
+  },
+  "sant-feliu-de-guixols": {
+    "lat": 41.7819,
+    "lng": 3.0319
+  },
+  "sant-feliu-de-llobregat": {
+    "lat": 41.3833,
+    "lng": 2.05
+  },
+  "sant-fost-de-campsentelles": {
+    "lat": 41.518752,
+    "lng": 2.2328323
+  },
+  "sant-gregori": {
+    "lat": 41.9910304,
+    "lng": 2.7564765
+  },
+  "sant-hilari-sacalm": {
+    "lat": 41.8780822,
+    "lng": 2.5131751
+  },
+  "sant-jaume-d-enveja": {
+    "lat": 40.7062849,
+    "lng": 0.7182888
+  },
+  "sant-joan-de-les-abadesses": {
+    "lat": 42.233743,
+    "lng": 2.2854845
+  },
+  "sant-joan-despi": {
+    "lat": 41.3667951,
+    "lng": 2.0570346
+  },
+  "sant-just-desvern": {
+    "lat": 41.3815832,
+    "lng": 2.0750677
+  },
+  "sant-llorenc-de-la-muga": {
+    "lat": 42.3199618,
+    "lng": 2.7888647
+  },
+  "sant-llorenc-de-morunys": {
+    "lat": 42.1360783,
+    "lng": 1.5885869
+  },
+  "sant-marti-de-llemena": {
+    "lat": 42.0364324,
+    "lng": 2.6475329
+  },
+  "sant-pere-de-ribes": {
+    "lat": 41.2619218,
+    "lng": 1.7721357
+  },
+  "sant-pere-pescador": {
+    "lat": 42.1899836,
+    "lng": 3.0837479
+  },
+  "sant-pol-de-mar": {
+    "lat": 41.6030132,
+    "lng": 2.6238092
+  },
+  "sant-quirze-del-valles": {
+    "lat": 41.5331789,
+    "lng": 2.0806453
+  },
+  "sant-sadurni-d-anoia": {
+    "lat": 41.4244663,
+    "lng": 1.7863949
+  },
+  "sant-vicenc-de-castellet": {
+    "lat": 41.6669999,
+    "lng": 1.8625559
+  },
+  "sant-vicenc-de-montalt": {
+    "lat": 41.5787122,
+    "lng": 2.5103642
+  },
+  "santa-coloma-de-gramenet": {
+    "lat": 41.4517,
+    "lng": 2.2077
+  },
+  "santa-cristina-d-aro": {
+    "lat": 41.813979,
+    "lng": 2.9974879
+  },
+  "santa-eulalia-de-roncana": {
+    "lat": 41.6523952,
+    "lng": 2.229264
+  },
+  "santa-margarida-i-els-monjos": {
+    "lat": 41.3213389,
+    "lng": 1.6623519
+  },
+  "santa-susanna": {
+    "lat": 41.6357256,
+    "lng": 2.7065933
+  },
+  "sarria-de-ter": {
+    "lat": 42.0141923,
+    "lng": 2.8175976
+  },
+  "senterada": {
+    "lat": 42.3249257,
+    "lng": 0.9366155
+  },
+  "setcases": {
+    "lat": 42.375331,
+    "lng": 2.3016103
+  },
+  "sitges": {
+    "lat": 41.2369,
+    "lng": 1.8144
+  },
+  "sort": {
+    "lat": 42.4114509,
+    "lng": 1.1298362
+  },
+  "susqueda": {
+    "lat": 41.9983697,
+    "lng": 2.5131351
+  },
+  "tarragona": {
+    "lat": 41.1189,
+    "lng": 1.2445
+  },
+  "tarrega": {
+    "lat": 41.6472761,
+    "lng": 1.1409115
+  },
+  "teia": {
+    "lat": 41.4994081,
+    "lng": 2.3205426
+  },
+  "terrassa": {
+    "lat": 41.5632,
+    "lng": 2.0089
+  },
+  "tiana": {
+    "lat": 41.4819226,
+    "lng": 2.2689473
+  },
+  "tivenys": {
+    "lat": 40.9063633,
+    "lng": 0.5123178
+  },
+  "tora": {
+    "lat": 41.8120807,
+    "lng": 1.4037146
+  },
+  "tordera": {
+    "lat": 41.6977173,
+    "lng": 2.7172987
+  },
+  "torello": {
+    "lat": 42.0754755,
+    "lng": 2.2955862
+  },
+  "tornabous": {
+    "lat": 41.7018162,
+    "lng": 1.0524009
+  },
+  "torredembarra": {
+    "lat": 41.15,
+    "lng": 1.4
+  },
+  "torrefarrera": {
+    "lat": 41.6735377,
+    "lng": 0.6066894
+  },
+  "torregrossa": {
+    "lat": 41.5805089,
+    "lng": 0.8317131
+  },
+  "torroella-de-fluvia": {
+    "lat": 42.174492,
+    "lng": 3.0402489
+  },
+  "torroella-de-montgri": {
+    "lat": 42.040982,
+    "lng": 3.1262041
+  },
+  "tortella": {
+    "lat": 42.233331,
+    "lng": 2.630869
+  },
+  "tortosa": {
+    "lat": 40.8122,
+    "lng": 0.5211
+  },
+  "toses": {
+    "lat": 42.3218595,
+    "lng": 2.0168227
+  },
+  "tossa-de-mar": {
+    "lat": 41.7197773,
+    "lng": 2.9312155
+  },
+  "tredos": {
+    "lat": 42.7020287,
+    "lng": 0.9159365
+  },
+  "tremp": {
+    "lat": 42.1669782,
+    "lng": 0.8950137
+  },
+  "ulla": {
+    "lat": 42.0500542,
+    "lng": 3.1073899
+  },
+  "ullastret": {
+    "lat": 42.0008975,
+    "lng": 3.0689759
+  },
+  "ulldecona": {
+    "lat": 40.5959246,
+    "lng": 0.4492914
+  },
+  "ultramort": {
+    "lat": 42.037127,
+    "lng": 3.0349373
+  },
+  "urus": {
+    "lat": 42.3520412,
+    "lng": 1.8534065
+  },
+  "vacarisses": {
+    "lat": 41.6063852,
+    "lng": 1.9194608
+  },
+  "valls": {
+    "lat": 41.2869,
+    "lng": 1.2497
+  },
+  "ventallo": {
+    "lat": 42.1491351,
+    "lng": 3.0268953
+  },
+  "vic": {
+    "lat": 41.9306,
+    "lng": 2.2544
+  },
+  "vidra": {
+    "lat": 42.1228239,
+    "lng": 2.3106778
+  },
+  "vidreres": {
+    "lat": 41.7888681,
+    "lng": 2.7792768
+  },
+  "vielha": {
+    "lat": 42.7017572,
+    "lng": 0.7954744
+  },
+  "vila-seca": {
+    "lat": 41.1109268,
+    "lng": 1.144961
+  },
+  "vilablareix": {
+    "lat": 41.9569396,
+    "lng": 2.7728439
+  },
+  "vilac": {
+    "lat": 42.7214531,
+    "lng": 0.7992068
+  },
+  "viladecans": {
+    "lat": 41.3167,
+    "lng": 2.0333
+  },
+  "vilademuls": {
+    "lat": 42.138644,
+    "lng": 2.8879149
+  },
+  "viladrau": {
+    "lat": 41.8483059,
+    "lng": 2.3906759
+  },
+  "vilafranca-del-penedes": {
+    "lat": 41.3469,
+    "lng": 1.6994
+  },
+  "vilajuiga": {
+    "lat": 42.3255898,
+    "lng": 3.0937345
+  },
+  "vilallonga-de-ter": {
+    "lat": 42.331497,
+    "lng": 2.3125292
+  },
+  "vilamacolum": {
+    "lat": 42.1965528,
+    "lng": 3.0571146
+  },
+  "vilamalla": {
+    "lat": 42.2165982,
+    "lng": 2.9708293
+  },
+  "vilamos": {
+    "lat": 42.7471748,
+    "lng": 0.7277956
+  },
+  "vilanova-i-la-geltru": {
+    "lat": 41.2233,
+    "lng": 1.7253
+  },
+  "vilaplana": {
+    "lat": 41.2281084,
+    "lng": 1.0336452
+  },
+  "vilassar-de-dalt": {
+    "lat": 41.5163595,
+    "lng": 2.3592879
+  },
+  "vilassar-de-mar": {
+    "lat": 41.5028,
+    "lng": 2.3919
+  },
+  "vilopriu": {
+    "lat": 42.1043198,
+    "lng": 2.9918548
+  }
 }
