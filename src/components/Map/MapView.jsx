@@ -54,7 +54,7 @@ export default function MapView() {
         // 2. Una sola llamada para todos los precios
         let rankingData = rankingCiudadesCache.current
         if (!rankingData) {
-          const res = await fetch('/api/stats/ranking?tipo=ciudad&limite=200&orden=asc')
+          const res = await fetch('/api/stats/ranking?tipo=ciudad&limite=400&orden=asc')
           if (!res.ok) throw new Error(`Error ${res.status}`)
           rankingData = await res.json()
           rankingCiudadesCache.current = rankingData
@@ -127,7 +127,7 @@ export default function MapView() {
         // 2. Una sola llamada al ranking para obtener todos los precios
         let rankingData = rankingBarriosCache.current
         if (!rankingData) {
-          const res = await fetch('/api/stats/ranking?tipo=barrio&limite=200&orden=asc')
+        const res = await fetch('/api/stats/ranking?tipo=barrio&limite=400&orden=asc')
           if (!res.ok) throw new Error('ranking barrios failed')
           rankingData = await res.json()
           rankingBarriosCache.current = rankingData
