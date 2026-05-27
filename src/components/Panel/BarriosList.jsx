@@ -29,7 +29,7 @@ export default function BarriosList({ barrios, ciudadSlug }) {
     return <p className="text-sm text-gray-400 text-center py-2">Sin barrios disponibles</p>
   }
 
-  const barriosFiltrados = barrios.filter(b => (b.pisosIndexados ?? 0) >= 1)
+  const barriosFiltrados = barrios  
   
   return (
     <div className="space-y-2">

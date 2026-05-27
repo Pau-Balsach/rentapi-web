@@ -10,22 +10,61 @@ import BarrioPanel from '../Panel/BarrioPanel'
 
 const ZOOM_BARRIOS = 11
 
-// Slugs sin nombre real: solo números, guiones, o "s-n"
 const esSlugBasura = (slug) => /^[\d\-]+$/.test(slug) || slug === 's-n'
 
-// Convierte slug a nombre legible: "sant-feliu-de-guixols" → "Sant Feliu De Guixols"
 const slugToNombre = (slug) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+
+// Comprueba si un punto {lat, lng} está dentro de los bounds del mapa
+const enViewport = (lat, lng, bounds) => {
+  if (!bounds) return true
+  return (
+    lat >= bounds.minLat &&
+    lat <= bounds.maxLat &&
+    lng >= bounds.minLng &&
+    lng <= bounds.maxLng
+  )
+}
 
 function MapClickHandler({ onMapClick }) {
   useMapEvents({ click: onMapClick })
   return null
 }
 
-function ZoomWatcher({ onZoomChange }) {
-  useMapEvents({
-    zoomend: (e) => onZoomChange(e.target.getZoom())
+function MapWatcher({ onZoomChange, onBoundsChange }) {
+  const map = useMapEvents({
+    zoomend: (e) => {
+      onZoomChange(e.target.getZoom())
+      const b = e.target.getBounds()
+      onBoundsChange({
+        minLat: b.getSouth(),
+        maxLat: b.getNorth(),
+        minLng: b.getWest(),
+        maxLng: b.getEast(),
+      })
+    },
+    moveend: (e) => {
+      const b = e.target.getBounds()
+      onBoundsChange({
+        minLat: b.getSouth(),
+        maxLat: b.getNorth(),
+        minLng: b.getWest(),
+        maxLng: b.getEast(),
+      })
+    },
   })
+
+  // Inicializar bounds al montar
+  useEffect(() => {
+    const b = map.getBounds()
+    onBoundsChange({
+      minLat: b.getSouth(),
+      maxLat: b.getNorth(),
+      minLng: b.getWest(),
+      maxLng: b.getEast(),
+    })
+  }, [])
+
   return null
 }
 
@@ -34,24 +73,20 @@ export default function MapView() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [zoom, setZoom] = useState(8)
-  const [barriosVisibles, setBarriosVisibles] = useState([])
+  const [bounds, setBounds] = useState(null)
+  const [barriosTodos, setBarriosTodos] = useState([])
   const [loadingBarrios, setLoadingBarrios] = useState(false)
   const [selectedBarrio, setSelectedBarrio] = useState(null)
 
-  // Cache de rankings para no repetir fetch al hacer zoom in/out
   const rankingCiudadesCache = useRef(null)
   const rankingBarriosCache = useRef(null)
 
   // ── Carga inicial de ciudades ──────────────────────────────────────────────
-  // Sin llamada a /geo/ciudades: construimos la lista desde ciudades-coords.json (local)
-  // y enriquecemos con una sola llamada al ranking para obtener los precios
   useEffect(() => {
     async function cargarDatos() {
       try {
-        // 1. Lista de ciudades desde JSON local — sin red
         const slugs = Object.keys(coordsData)
 
-        // 2. Una sola llamada para todos los precios
         let rankingData = rankingCiudadesCache.current
         if (!rankingData) {
           const res = await fetch('/api/stats/ranking?tipo=ciudad&limite=400&orden=asc')
@@ -89,21 +124,18 @@ export default function MapView() {
     cargarDatos()
   }, [])
 
-  // ── Carga barrios cuando zoom supera el umbral ─────────────────────────────
-  // Sin llamadas a /geo/barrios: construimos la lista desde barrios-coords.json (local)
-  // y enriquecemos con una sola llamada al ranking de barrios
+  // ── Carga todos los barrios con precio (una sola vez) ──────────────────────
   useEffect(() => {
     if (zoom < ZOOM_BARRIOS) {
-      setBarriosVisibles([])
+      setBarriosTodos([])
       return
     }
+    if (barriosTodos.length > 0) return // ya cargados
 
     setLoadingBarrios(true)
 
     async function cargarBarrios() {
       try {
-        // 1. Construir lista de barrios candidatos desde el JSON local
-        //    sin ninguna llamada de red a /geo/barrios
         const ciudadesACargar = selectedCiudad
           ? ciudades.filter(c => c.slug === selectedCiudad.slug)
           : ciudades
@@ -114,9 +146,7 @@ export default function MapView() {
             .filter(([slug]) => !esSlugBasura(slug))
             .map(([slug, coords]) => ({
               slug,
-              nombre: slug
-                .replace(/-/g, ' ')
-                .replace(/\b\w/g, l => l.toUpperCase()),
+              nombre: slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
               ciudadSlug: ciudad.slug,
               lat: coords.lat,
               lng: coords.lng,
@@ -124,10 +154,9 @@ export default function MapView() {
             }))
         })
 
-        // 2. Una sola llamada al ranking para obtener todos los precios
         let rankingData = rankingBarriosCache.current
         if (!rankingData) {
-        const res = await fetch('/api/stats/ranking?tipo=barrio&limite=400&orden=asc')
+          const res = await fetch('/api/stats/ranking?tipo=barrio&limite=400&orden=asc')
           if (!res.ok) throw new Error('ranking barrios failed')
           rankingData = await res.json()
           rankingBarriosCache.current = rankingData
@@ -139,14 +168,16 @@ export default function MapView() {
           if (item.zona) precioMap[item.zona.toLowerCase()] = item.precioMedioMes
         })
 
-        const conPrecios = barriosSinPrecio.map(barrio => ({
-          ...barrio,
-          precioMedio: precioMap[barrio.nombre?.toLowerCase()] ?? null
-        }))
+        const conPrecios = barriosSinPrecio
+          .map(barrio => ({
+            ...barrio,
+            precioMedio: precioMap[barrio.nombre?.toLowerCase()] ?? null
+          }))
+          .filter(b => b.precioMedio !== null)
 
-        setBarriosVisibles(conPrecios.filter(b => b.precioMedio !== null))
+        setBarriosTodos(conPrecios)
       } catch {
-        setBarriosVisibles([])
+        setBarriosTodos([])
       } finally {
         setLoadingBarrios(false)
       }
@@ -154,6 +185,17 @@ export default function MapView() {
 
     cargarBarrios()
   }, [zoom, ciudades, selectedCiudad])
+
+  // ── Filtrar por viewport ───────────────────────────────────────────────────
+  const modoBarrios = zoom >= ZOOM_BARRIOS
+
+  const ciudadesVisibles = ciudades.filter(c =>
+    enViewport(c.lat, c.lng, bounds)
+  )
+
+  const barriosVisibles = barriosTodos.filter(b =>
+    enViewport(b.lat, b.lng, bounds)
+  )
 
   // ── Handlers ───────────────────────────────────────────────────────────────
   const handleMapClick = useCallback(() => {
@@ -175,8 +217,6 @@ export default function MapView() {
     setSelectedCiudad(null)
     setSelectedBarrio(null)
   }, [])
-
-  const modoBarrios = zoom >= ZOOM_BARRIOS
 
   return (
     <div className="relative w-full h-full">
@@ -210,9 +250,9 @@ export default function MapView() {
           attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
         />
         <MapClickHandler onMapClick={handleMapClick} />
-        <ZoomWatcher onZoomChange={setZoom} />
+        <MapWatcher onZoomChange={setZoom} onBoundsChange={setBounds} />
 
-        {!modoBarrios && ciudades.map(ciudad => (
+        {!modoBarrios && ciudadesVisibles.map(ciudad => (
           <CityMarker
             key={ciudad.slug}
             ciudad={ciudad}
