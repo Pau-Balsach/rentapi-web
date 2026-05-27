@@ -9,6 +9,21 @@ import CityPanel from '../Panel/CityPanel'
 import BarrioPanel from '../Panel/BarrioPanel'
 
 const ZOOM_BARRIOS = 11
+const CACHE_TTL = 1000 * 60 * 60 * 24 // 24 horas
+
+function leerCache(key) {
+  try {
+    const raw = localStorage.getItem(key)
+    if (!raw) return null
+    const { data, ts } = JSON.parse(raw)
+    if (Date.now() - ts > CACHE_TTL) { localStorage.removeItem(key); return null }
+    return data
+  } catch { return null }
+}
+
+function escribirCache(key, data) {
+  try { localStorage.setItem(key, JSON.stringify({ data, ts: Date.now() })) } catch {}
+}
 
 const esSlugBasura = (slug) => /^[\d\-]+$/.test(slug) || slug === 's-n'
 
@@ -88,12 +103,14 @@ export default function MapView() {
         const slugs = Object.keys(coordsData)
 
         let rankingData = rankingCiudadesCache.current
+          ?? leerCache('ranking_ciudades')
         if (!rankingData) {
           const res = await fetch('/api/stats/ranking?tipo=ciudad&limite=400&orden=asc')
           if (!res.ok) throw new Error(`Error ${res.status}`)
           rankingData = await res.json()
-          rankingCiudadesCache.current = rankingData
+          escribirCache('ranking_ciudades', rankingData)
         }
+        rankingCiudadesCache.current = rankingData
 
         const ranking = rankingData.ranking ?? []
         const precioMap = {}
@@ -155,12 +172,14 @@ export default function MapView() {
         })
 
         let rankingData = rankingBarriosCache.current
+          ?? leerCache('ranking_barrios')
         if (!rankingData) {
           const res = await fetch('/api/stats/ranking?tipo=barrio&limite=400&orden=asc')
           if (!res.ok) throw new Error('ranking barrios failed')
           rankingData = await res.json()
-          rankingBarriosCache.current = rankingData
+          escribirCache('ranking_barrios', rankingData)
         }
+        rankingBarriosCache.current = rankingData
 
         const ranking = rankingData.ranking ?? []
         const precioMap = {}
