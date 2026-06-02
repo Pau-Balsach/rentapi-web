@@ -19,7 +19,8 @@ export default async function handler(req, res) {
     })
     const data = await response.json()
 
-    if (subpath === 'ranking') {
+    // Cache en CDN de Vercel — datos de alquiler cambian como mucho 1 vez al día
+    if (subpath === 'ranking' || subpath.startsWith('ciudad') || subpath.startsWith('barrio')) {
       res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=3600')
     }
 

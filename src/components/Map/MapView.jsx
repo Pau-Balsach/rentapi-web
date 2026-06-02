@@ -105,7 +105,7 @@ export default function MapView() {
         let rankingData = rankingCiudadesCache.current
           ?? leerCache('ranking_ciudades')
         if (!rankingData) {
-          const res = await fetch('/api/stats/ranking?tipo=ciudad&limite=400&orden=asc')
+          const res = await fetch('/api/stats/ranking?tipo=ciudad&limite=400&orden=asc&v=2')
           if (!res.ok) throw new Error(`Error ${res.status}`)
           rankingData = await res.json()
           escribirCache('ranking_ciudades', rankingData)
@@ -174,7 +174,7 @@ export default function MapView() {
         let rankingData = rankingBarriosCache.current
           ?? leerCache('ranking_barrios')
         if (!rankingData) {
-          const res = await fetch('/api/stats/ranking?tipo=barrio&limite=400&orden=asc')
+          const res = await fetch('/api/stats/ranking?tipo=barrio&limite=400&orden=asc&v=2')
           if (!res.ok) throw new Error('ranking barrios failed')
           rankingData = await res.json()
           escribirCache('ranking_barrios', rankingData)
