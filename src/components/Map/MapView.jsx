@@ -30,7 +30,6 @@ const esSlugBasura = (slug) => /^[\d\-]+$/.test(slug) || slug === 's-n'
 const slugToNombre = (slug) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
 
-// Comprueba si un punto {lat, lng} está dentro de los bounds del mapa
 const enViewport = (lat, lng, bounds) => {
   if (!bounds) return true
   return (
@@ -69,7 +68,6 @@ function MapWatcher({ onZoomChange, onBoundsChange }) {
     },
   })
 
-  // Inicializar bounds al montar
   useEffect(() => {
     const b = map.getBounds()
     onBoundsChange({
@@ -95,6 +93,8 @@ export default function MapView() {
 
   const rankingCiudadesCache = useRef(null)
   const rankingBarriosCache = useRef(null)
+  // Flag para evitar cargar barrios más de una vez
+  const barriosCargados = useRef(false)
 
   // ── Carga inicial de ciudades ──────────────────────────────────────────────
   useEffect(() => {
@@ -141,23 +141,26 @@ export default function MapView() {
     cargarDatos()
   }, [])
 
-  // ── Carga todos los barrios con precio (una sola vez) ──────────────────────
+  // ── Carga todos los barrios una sola vez cuando se entra en modo barrios ───
   useEffect(() => {
+    // Limpiar barrios al salir del modo barrios
     if (zoom < ZOOM_BARRIOS) {
-      setBarriosTodos([])
       return
     }
-    if (barriosTodos.length > 0) return // ya cargados
 
+    // Si ya están cargados, no volver a cargar
+    if (barriosCargados.current) return
+
+    // Esperar a que las ciudades estén disponibles
+    if (ciudades.length === 0) return
+
+    barriosCargados.current = true
     setLoadingBarrios(true)
 
     async function cargarBarrios() {
       try {
-        const ciudadesACargar = selectedCiudad
-          ? ciudades.filter(c => c.slug === selectedCiudad.slug)
-          : ciudades
-
-        const barriosSinPrecio = ciudadesACargar.flatMap(ciudad => {
+        // Cargar TODAS las ciudades, sin filtrar por selectedCiudad
+        const barriosSinPrecio = ciudades.flatMap(ciudad => {
           const coordsCiudad = barriosData[ciudad.slug] || {}
           return Object.entries(coordsCiudad)
             .filter(([slug]) => !esSlugBasura(slug))
@@ -196,6 +199,7 @@ export default function MapView() {
 
         setBarriosTodos(conPrecios)
       } catch {
+        barriosCargados.current = false // permitir reintento si falla
         setBarriosTodos([])
       } finally {
         setLoadingBarrios(false)
@@ -203,7 +207,7 @@ export default function MapView() {
     }
 
     cargarBarrios()
-  }, [zoom, ciudades, selectedCiudad])
+  }, [zoom, ciudades])
 
   // ── Filtrar por viewport ───────────────────────────────────────────────────
   const modoBarrios = zoom >= ZOOM_BARRIOS
