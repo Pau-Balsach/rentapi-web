@@ -60,6 +60,9 @@ export default function EvaluarPage() {
     por_encima: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', label: 'Por encima del mercado' },
   }
 
+  // Mostrar spinner si: hay ciudad seleccionada Y (está cargando O aún no hay barrios cargados)
+  const mostrarSpinnerBarrios = form.ciudad && (loadingBarrios || barrios.length === 0)
+
   return (
     <div className="max-w-xl mx-auto p-6">
       <h1 className="text-2xl font-bold text-gray-800 mb-1">Evaluar un precio</h1>
@@ -84,7 +87,16 @@ export default function EvaluarPage() {
         </div>
 
         {/* Barrio */}
-        {barrios.length > 0 && (
+        {mostrarSpinnerBarrios && (
+          <div className="flex items-center gap-2 text-sm text-gray-400">
+            <svg className="animate-spin h-4 w-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+            </svg>
+            Cargando barrios...
+          </div>
+        )}
+        {!loadingBarrios && barrios.length > 0 && (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Barrio <span className="text-gray-400 font-normal">(opcional)</span>
