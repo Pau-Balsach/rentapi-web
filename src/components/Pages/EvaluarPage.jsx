@@ -15,14 +15,20 @@ export default function EvaluarPage() {
   const [barrios, setBarrios] = useState([])
   const [resultado, setResultado] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [loadingBarrios, setLoadingBarrios] = useState(false)
   const [error, setError] = useState(null)
 
   const handleCiudadChange = async (slug) => {
     setForm(f => ({ ...f, ciudad: slug, barrio: '' }))
     setBarrios([])
     if (slug) {
-      const data = await fetchBarrios(slug)
-      setBarrios(data)
+      setLoadingBarrios(true)
+      try {
+        const data = await fetchBarrios(slug)
+        setBarrios(data)
+      } finally {
+        setLoadingBarrios(false)
+      }
     }
   }
 
