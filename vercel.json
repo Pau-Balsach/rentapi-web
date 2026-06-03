@@ -2,6 +2,7 @@
   "rewrites": [
     { "source": "/api/stats/:path*", "destination": "/api/stats" },
     { "source": "/api/geo/:path*",   "destination": "/api/geo"   },
-    { "source": "/api/pisos/:path*", "destination": "/api/pisos" }
+    { "source": "/api/pisos/:path*", "destination": "/api/pisos" },
+    { "source": "/((?!api/).*)",     "destination": "/index.html" }
   ]
 }
