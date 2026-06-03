@@ -1,5 +1,21 @@
 import { useEffect, useState } from "react";
 
+const CACHE_TTL = 1000 * 60 * 60 * 24 // 24 horas
+
+function leerCache(key) {
+  try {
+    const raw = localStorage.getItem(key)
+    if (!raw) return null
+    const { data, ts } = JSON.parse(raw)
+    if (Date.now() - ts > CACHE_TTL) { localStorage.removeItem(key); return null }
+    return data
+  } catch { return null }
+}
+
+function escribirCache(key, data) {
+  try { localStorage.setItem(key, JSON.stringify({ data, ts: Date.now() })) } catch {}
+}
+
 const PAGE_SIZE = 10;
 
 function getColor(precio) {
@@ -76,13 +92,27 @@ export default function RankingPage() {
     setError(null);
     setPage(1);
 
-    // Pedimos solo 10 resultados por página directamente a la API
-    fetch(`/api/stats/ranking?tipo=${tipo}&limite=200`)
+    const cacheKey = `ranking_${tipo}`;
+    const cached = leerCache(cacheKey);
+    if (cached) {
+      const lista = Array.isArray(cached) ? cached : cached.ranking ?? [];
+      const porZona = new Map();
+      lista.forEach((item) => {
+        const zona = item.zona?.toLowerCase();
+        if (!porZona.has(zona)) porZona.set(zona, item);
+      });
+      setData(Array.from(porZona.values()));
+      setLoading(false);
+      return;
+    }
+
+    fetch(`/api/stats/ranking?tipo=${tipo}&limite=400&orden=asc&v=2`)
       .then((r) => {
         if (!r.ok) throw new Error(`Error ${r.status}`);
         return r.json();
       })
       .then((json) => {
+        escribirCache(cacheKey, json);
         const lista = Array.isArray(json) ? json : json.ranking ?? [];
         const porZona = new Map();
         lista.forEach((item) => {
